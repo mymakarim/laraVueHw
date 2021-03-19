@@ -221,7 +221,7 @@ export default {
     methods: {
         addNew() {
             // Submit the form via a POST request
-            this.form.post("/users").then(({ data }) => {
+            this.form.post("api/user").then(({ data }) => {
                 console.log("Form Data => ", data);
             });
         }

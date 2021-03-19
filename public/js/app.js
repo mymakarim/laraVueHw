@@ -2183,7 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addNew: function addNew() {
       // Submit the form via a POST request
-      this.form.post("/users").then(function (_ref) {
+      this.form.post("api/user").then(function (_ref) {
         var data = _ref.data;
         console.log("Form Data => ", data);
       });

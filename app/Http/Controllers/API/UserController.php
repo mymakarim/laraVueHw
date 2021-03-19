@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' =>'string|required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'type' => 'required'
+        ]);
+        return User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'type' => $request['type'],
+            'photo' => $request['photo'],
+            'bio' => $request['bio']
+        ]);
     }
 
     /**
