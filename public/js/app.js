@@ -2177,7 +2177,8 @@ __webpack_require__.r(__webpack_exports__);
         type: "",
         bio: "",
         photo: "https://avatars.githubusercontent.com/u/39916324?s=460&u=602ca47fcce463981a2511a21148236f304ec934&v=4"
-      })
+      }),
+      users: {}
     };
   },
   methods: {
@@ -2187,7 +2188,18 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         console.log("Form Data => ", data);
       });
+    },
+    loadUsers: function loadUsers() {
+      var _this = this;
+
+      axios.get("api/user").then(function (_ref2) {
+        var data = _ref2.data;
+        _this.users = data.data;
+      });
     }
+  },
+  created: function created() {
+    this.loadUsers();
   },
   mounted: function mounted() {
     console.log("Component mounted.");
@@ -39153,7 +39165,39 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-white p-5" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "box" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-body table-responsive no-padding" }, [
+        _c("table", { staticClass: "table table-striped table-hover" }, [
+          _c(
+            "tbody",
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._l(_vm.users, function(user) {
+                return _c("tr", { key: user.id }, [
+                  _c("td", [_vm._v(_vm._s(user.id))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(user.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(user.email))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("span", { staticClass: "label label-success" }, [
+                      _vm._v(_vm._s(user.type))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2, true)
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -39173,7 +39217,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -39441,111 +39485,90 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "box-header d-flex align-items-center justify-content-between mb-2"
-        },
-        [
-          _c("div", { staticClass: "d-flex align-items-center" }, [
-            _c("h3", { staticClass: "box-title m-0" }, [_vm._v("Users List")]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "ml-3 btn btn-primary",
-                attrs: {
-                  href: "http://",
-                  "data-toggle": "modal",
-                  "data-target": "#addNewModal"
-                }
-              },
-              [
-                _c("i", { staticClass: "fa fa-user text-white" }),
-                _vm._v("\n                     Add New\n                ")
-              ]
-            )
-          ]),
+    return _c(
+      "div",
+      {
+        staticClass:
+          "box-header d-flex align-items-center justify-content-between mb-2"
+      },
+      [
+        _c("div", { staticClass: "d-flex align-items-center" }, [
+          _c("h3", { staticClass: "box-title m-0" }, [_vm._v("Users List")]),
           _vm._v(" "),
-          _c("div", { staticClass: "box-tools" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "input-group input-group-sm hidden-xs d-flex align-items-center"
-              },
-              [
-                _c("input", {
-                  staticClass: "form-control pull-right",
-                  attrs: {
-                    type: "text",
-                    name: "table_search",
-                    placeholder: "Search"
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group-btn" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-default",
-                      attrs: { type: "submit" }
-                    },
-                    [_c("i", { staticClass: "fa fa-search" })]
-                  )
-                ])
-              ]
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "box-body table-responsive no-padding" }, [
-        _c("table", { staticClass: "table table-striped table-hover" }, [
-          _c("tbody", [
-            _c("tr", [
-              _c("th", [_vm._v("ID")]),
+          _c(
+            "a",
+            {
+              staticClass: "ml-3 btn btn-primary",
+              attrs: {
+                href: "http://",
+                "data-toggle": "modal",
+                "data-target": "#addNewModal"
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-user text-white" }),
+              _vm._v("\n                     Add New\n                ")
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "box-tools" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "input-group input-group-sm hidden-xs d-flex align-items-center"
+            },
+            [
+              _c("input", {
+                staticClass: "form-control pull-right",
+                attrs: {
+                  type: "text",
+                  name: "table_search",
+                  placeholder: "Search"
+                }
+              }),
               _vm._v(" "),
-              _c("th", [_vm._v("Name")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Email")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Type")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Modify")])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [_vm._v("183")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("John Doe")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("11-7-2014")]),
-              _vm._v(" "),
-              _c("td", [
-                _c("span", { staticClass: "label label-success" }, [
-                  _vm._v("Approved")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "d-grid gap-2" }, [
+              _c("div", { staticClass: "input-group-btn" }, [
                 _c(
-                  "a",
-                  { staticClass: "bg-success p-2", attrs: { href: "#" } },
-                  [_c("i", { staticClass: "fa fa-edit text-white" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "bg-danger p-2", attrs: { href: "#" } },
-                  [_c("i", { staticClass: "fa fa-trash text-white" })]
+                  "button",
+                  { staticClass: "btn btn-default", attrs: { type: "submit" } },
+                  [_c("i", { staticClass: "fa fa-search" })]
                 )
               ])
-            ])
-          ])
+            ]
+          )
         ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Type")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Modify")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "d-grid gap-2" }, [
+      _c("a", { staticClass: "bg-success p-2", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-edit text-white" })
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "bg-danger p-2", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-trash text-white" })
       ])
     ])
   },

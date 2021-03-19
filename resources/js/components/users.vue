@@ -46,14 +46,14 @@
                             <th>Type</th>
                             <th>Modify</th>
                         </tr>
-                        <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>11-7-2014</td>
+                        <tr v-for="user in users" :key="user.id">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
                             <td>
-                                <span class="label label-success"
-                                    >Approved</span
-                                >
+                                <span class="label label-success">{{
+                                    user.type
+                                }}</span>
                             </td>
                             <td class="d-grid gap-2">
                                 <a href="#" class="bg-success p-2">
@@ -215,7 +215,8 @@ export default {
                 bio: "",
                 photo:
                     "https://avatars.githubusercontent.com/u/39916324?s=460&u=602ca47fcce463981a2511a21148236f304ec934&v=4"
-            })
+            }),
+            users: {}
         };
     },
     methods: {
@@ -224,7 +225,15 @@ export default {
             this.form.post("api/user").then(({ data }) => {
                 console.log("Form Data => ", data);
             });
+        },
+        loadUsers() {
+            axios.get("api/user").then(({ data }) => {
+                this.users = data.data;
+            });
         }
+    },
+    created() {
+        this.loadUsers();
     },
     mounted() {
         console.log("Component mounted.");
