@@ -69,7 +69,11 @@
                                 <a href="#" class="bg-success p-2">
                                     <i class="fa fa-edit text-white"> </i>
                                 </a>
-                                <a href="#" class="bg-danger p-2">
+                                <a
+                                    href="#"
+                                    @click="deleteUser(user.id)"
+                                    class="bg-danger p-2"
+                                >
                                     <i class="fa fa-trash text-white"> </i>
                                 </a>
                             </td>
@@ -230,6 +234,38 @@ export default {
         };
     },
     methods: {
+        deleteUser(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    this.form
+                        .delete("api/user/" + id)
+                        .then(data => {
+                            console.log("delete user data: ", data);
+                            Fire.$emit("reloadListUsers");
+                            Swal.fire(
+                                "Deleted!",
+                                "Your file has been deleted.",
+                                "success"
+                            );
+                        })
+                        .catch(err => {
+                            Swal.fire(
+                                "Not Deleted!",
+                                "There was a problem, please try again!",
+                                "fail"
+                            );
+                        });
+                }
+            });
+        },
         addNew() {
             this.$Progress.start();
             // Submit the form via a POST request
@@ -238,7 +274,7 @@ export default {
                 this.form.reset();
                 $("#addNewModal").modal("hide");
                 // this.loadUsers();
-                Fire.$emit("NewUserCreated");
+                Fire.$emit("reloadListUsers");
                 this.$Progress.finish();
                 Toast.fire({
                     icon: "success",
@@ -254,7 +290,7 @@ export default {
     },
     created() {
         this.loadUsers();
-        Fire.$on("NewUserCreated", () => {
+        Fire.$on("reloadListUsers", () => {
             this.loadUsers();
         });
     },

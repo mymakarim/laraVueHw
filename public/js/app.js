@@ -2177,6 +2177,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2192,8 +2196,31 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    addNew: function addNew() {
+    deleteUser: function deleteUser(id) {
       var _this = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this.form["delete"]("api/user/" + id).then(function (data) {
+            console.log("delete user data: ", data);
+            Fire.$emit("reloadListUsers");
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          })["catch"](function (err) {
+            Swal.fire("Not Deleted!", "There was a problem, please try again!", "fail");
+          });
+        }
+      });
+    },
+    addNew: function addNew() {
+      var _this2 = this;
 
       this.$Progress.start(); // Submit the form via a POST request
 
@@ -2201,13 +2228,13 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         console.log("Form Data => ", data);
 
-        _this.form.reset();
+        _this2.form.reset();
 
         $("#addNewModal").modal("hide"); // this.loadUsers();
 
-        Fire.$emit("NewUserCreated");
+        Fire.$emit("reloadListUsers");
 
-        _this.$Progress.finish();
+        _this2.$Progress.finish();
 
         Toast.fire({
           icon: "success",
@@ -2216,20 +2243,20 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadUsers: function loadUsers() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("api/user").then(function (_ref2) {
         var data = _ref2.data;
-        _this2.users = data.data;
+        _this3.users = data.data;
       });
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this4 = this;
 
     this.loadUsers();
-    Fire.$on("NewUserCreated", function () {
-      _this3.loadUsers();
+    Fire.$on("reloadListUsers", function () {
+      _this4.loadUsers();
     });
   },
   mounted: function mounted() {
@@ -64363,7 +64390,23 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(2, true)
+                  _c("td", { staticClass: "d-grid gap-2" }, [
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "bg-danger p-2",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteUser(user.id)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-trash text-white" })]
+                    )
+                  ])
                 ])
               })
             ],
@@ -64738,14 +64781,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "d-grid gap-2" }, [
-      _c("a", { staticClass: "bg-success p-2", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-edit text-white" })
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "bg-danger p-2", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fa fa-trash text-white" })
-      ])
+    return _c("a", { staticClass: "bg-success p-2", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fa fa-edit text-white" })
     ])
   },
   function() {
