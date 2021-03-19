@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,6 +58,11 @@ class UserController extends Controller
         //
     }
 
+    public function profile()
+    {
+        return auth("api")->user();
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -63,7 +72,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name' =>'string|required',
+            'email' => 'required|unique:users,email,' . $id,
+            'password' => 'sometimes|min:8',
+            'type' => 'required'
+        ]);
+        $user = User::findOrFail($id)->update($request->all());
+        return ["message"=>"Updated successfully", $user];
     }
 
     /**
