@@ -16,6 +16,7 @@ Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 
 Vue.use(VueRouter);
+import moment from "moment";
 
 let routes = [
     {
@@ -35,6 +36,14 @@ let routes = [
 const router = new VueRouter({
     mode: "history", // short for `routes: routes`
     routes,
+});
+
+Vue.filter("propper", (value) => {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+});
+
+Vue.filter("formattedDate", (value) => {
+    return moment(value).format("YYYY MM DD");
 });
 
 /**

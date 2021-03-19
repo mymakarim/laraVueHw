@@ -44,6 +44,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Type</th>
+                            <th>Created At</th>
                             <th>Modify</th>
                         </tr>
                         <tr v-for="user in users" :key="user.id">
@@ -51,9 +52,18 @@
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
                             <td>
-                                <span class="label label-success">{{
-                                    user.type
-                                }}</span>
+                                <span
+                                    class="badge"
+                                    :class="
+                                        user.type == 'user'
+                                            ? 'badge-primary'
+                                            : 'badge-success'
+                                    "
+                                    >{{ user.type | propper }}</span
+                                >
+                            </td>
+                            <td>
+                                {{ user.created_at | formattedDate }}
                             </td>
                             <td class="d-grid gap-2">
                                 <a href="#" class="bg-success p-2">
