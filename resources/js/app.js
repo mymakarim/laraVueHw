@@ -17,6 +17,41 @@ Vue.component(AlertError.name, AlertError);
 
 Vue.use(VueRouter);
 import moment from "moment";
+import VueProgressBar from "vue-progressbar";
+
+import Swal from "sweetalert2";
+
+window.Swal = Swal;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+});
+
+window.Toast = Toast;
+
+const options = {
+    color: "#38c172",
+    failedColor: "#e3342f",
+    thickness: "5px",
+    transition: {
+        speed: "0.2s",
+        opacity: "0.6s",
+        termination: 300,
+    },
+    autoRevert: true,
+    location: "top",
+    inverse: false,
+};
+
+Vue.use(VueProgressBar, options);
 
 let routes = [
     {

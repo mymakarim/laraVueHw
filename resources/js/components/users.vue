@@ -231,9 +231,18 @@ export default {
     },
     methods: {
         addNew() {
+            this.$Progress.start();
             // Submit the form via a POST request
             this.form.post("api/user").then(({ data }) => {
                 console.log("Form Data => ", data);
+                this.form.reset();
+                $("#addNewModal").modal("hide");
+                this.loadUsers();
+                this.$Progress.finish();
+                Toast.fire({
+                    icon: "success",
+                    title: "User created successfully"
+                });
             });
         },
         loadUsers() {
