@@ -10,7 +10,11 @@ import VueRouter from "vue-router";
 
 import Vue from "vue/dist/vue";
 window.Vue = Vue;
-// console.log(window.Vue);
+import { Form, HasError, AlertError } from "vform";
+window.Form = Form;
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+
 Vue.use(VueRouter);
 
 let routes = [
