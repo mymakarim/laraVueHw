@@ -2178,9 +2178,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2196,6 +2193,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    editModal: function editModal(user) {
+      this.form.reset();
+      $("#addNewModal").modal("show");
+      this.form.fill(user);
+    },
+    openModal: function openModal() {
+      this.form.reset();
+      $("#addNewModal").modal("show");
+    },
     deleteUser: function deleteUser(id) {
       var _this = this;
 
@@ -64351,7 +64357,32 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "bg-white p-5" }, [
     _c("div", { staticClass: "box" }, [
-      _vm._m(0),
+      _c(
+        "div",
+        {
+          staticClass:
+            "box-header d-flex align-items-center justify-content-between mb-2"
+        },
+        [
+          _c("div", { staticClass: "d-flex align-items-center" }, [
+            _c("h3", { staticClass: "box-title m-0" }, [_vm._v("Users List")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "ml-3 btn btn-primary",
+                on: { click: _vm.openModal }
+              },
+              [
+                _c("i", { staticClass: "fa fa-user text-white" }),
+                _vm._v("\n                     Add New\n                ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "box-body table-responsive no-padding" }, [
         _c("table", { staticClass: "table table-striped table-hover" }, [
@@ -64391,13 +64422,23 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "d-grid gap-2" }, [
-                    _vm._m(2, true),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-success",
+                        on: {
+                          click: function($event) {
+                            return _vm.editModal(user)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-edit text-white" })]
+                    ),
                     _vm._v(" "),
                     _c(
                       "a",
                       {
-                        staticClass: "bg-danger p-2",
-                        attrs: { href: "#" },
+                        staticClass: "btn btn-danger",
                         on: {
                           click: function($event) {
                             return _vm.deleteUser(user.id)
@@ -64434,7 +64475,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -64702,62 +64743,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "box-header d-flex align-items-center justify-content-between mb-2"
-      },
-      [
-        _c("div", { staticClass: "d-flex align-items-center" }, [
-          _c("h3", { staticClass: "box-title m-0" }, [_vm._v("Users List")]),
+    return _c("div", { staticClass: "box-tools" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "input-group input-group-sm hidden-xs d-flex align-items-center"
+        },
+        [
+          _c("input", {
+            staticClass: "form-control pull-right",
+            attrs: { type: "text", name: "table_search", placeholder: "Search" }
+          }),
           _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "ml-3 btn btn-primary",
-              attrs: {
-                href: "http://",
-                "data-toggle": "modal",
-                "data-target": "#addNewModal"
-              }
-            },
-            [
-              _c("i", { staticClass: "fa fa-user text-white" }),
-              _vm._v("\n                     Add New\n                ")
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-tools" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "input-group input-group-sm hidden-xs d-flex align-items-center"
-            },
-            [
-              _c("input", {
-                staticClass: "form-control pull-right",
-                attrs: {
-                  type: "text",
-                  name: "table_search",
-                  placeholder: "Search"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-btn" }, [
-                _c(
-                  "button",
-                  { staticClass: "btn btn-default", attrs: { type: "submit" } },
-                  [_c("i", { staticClass: "fa fa-search" })]
-                )
-              ])
-            ]
-          )
-        ])
-      ]
-    )
+          _c("div", { staticClass: "input-group-btn" }, [
+            _c(
+              "button",
+              { staticClass: "btn btn-default", attrs: { type: "submit" } },
+              [_c("i", { staticClass: "fa fa-search" })]
+            )
+          ])
+        ]
+      )
+    ])
   },
   function() {
     var _vm = this
@@ -64775,14 +64783,6 @@ var staticRenderFns = [
       _c("th", [_vm._v("Created At")]),
       _vm._v(" "),
       _c("th", [_vm._v("Modify")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "bg-success p-2", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fa fa-edit text-white" })
     ])
   },
   function() {

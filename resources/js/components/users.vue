@@ -6,12 +6,7 @@
             >
                 <div class="d-flex align-items-center">
                     <h3 class="box-title m-0">Users List</h3>
-                    <a
-                        href="http://"
-                        class="ml-3 btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#addNewModal"
-                    >
+                    <a class="ml-3 btn btn-primary" @click="openModal">
                         <i class="fa fa-user text-white"></i>
                         &nbsp;Add New
                     </a>
@@ -66,13 +61,15 @@
                                 {{ user.created_at | formattedDate }}
                             </td>
                             <td class="d-grid gap-2">
-                                <a href="#" class="bg-success p-2">
+                                <a
+                                    @click="editModal(user)"
+                                    class="btn btn-success"
+                                >
                                     <i class="fa fa-edit text-white"> </i>
                                 </a>
                                 <a
-                                    href="#"
                                     @click="deleteUser(user.id)"
-                                    class="bg-danger p-2"
+                                    class="btn btn-danger"
                                 >
                                     <i class="fa fa-trash text-white"> </i>
                                 </a>
@@ -234,6 +231,15 @@ export default {
         };
     },
     methods: {
+        editModal(user) {
+            this.form.reset();
+            $("#addNewModal").modal("show");
+            this.form.fill(user);
+        },
+        openModal() {
+            this.form.reset();
+            $("#addNewModal").modal("show");
+        },
         deleteUser(id) {
             Swal.fire({
                 title: "Are you sure?",
