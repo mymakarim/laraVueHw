@@ -50584,4 +50584,9 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+.router-link-exact-active.router-link-active {
+  background-color: blueviolet !important;
+  color: white !important;
+}
+
 

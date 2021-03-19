@@ -6,8 +6,32 @@
 
 require("./bootstrap");
 require("admin-lte");
+import VueRouter from "vue-router";
 
-window.Vue = require("vue").default;
+import Vue from "vue/dist/vue";
+window.Vue = Vue;
+// console.log(window.Vue);
+Vue.use(VueRouter);
+
+let routes = [
+    {
+        path: "/dashboard",
+        component: require("./components/dashbaoard.vue").default,
+    },
+    {
+        path: "/profile",
+        component: require("./components/profile.vue").default,
+    },
+    {
+        path: "/users",
+        component: require("./components/users.vue").default,
+    },
+];
+
+const router = new VueRouter({
+    mode: "history", // short for `routes: routes`
+    routes,
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,5 +56,5 @@ Vue.component(
  */
 
 const app = new Vue({
-    el: "#app",
-});
+    router,
+}).$mount("#app");
