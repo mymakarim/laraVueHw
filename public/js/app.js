@@ -2203,9 +2203,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.form.reset();
 
-        $("#addNewModal").modal("hide");
+        $("#addNewModal").modal("hide"); // this.loadUsers();
 
-        _this.loadUsers();
+        Fire.$emit("NewUserCreated");
 
         _this.$Progress.finish();
 
@@ -2225,7 +2225,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var _this3 = this;
+
     this.loadUsers();
+    Fire.$on("NewUserCreated", function () {
+      _this3.loadUsers();
+    });
   },
   mounted: function mounted() {
     console.log("Component mounted.");
@@ -2300,6 +2305,7 @@ var options = {
   inverse: false
 };
 vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default().use((vue_progressbar__WEBPACK_IMPORTED_MODULE_4___default()), options);
+window.Fire = new (vue_dist_vue__WEBPACK_IMPORTED_MODULE_0___default())();
 var routes = [{
   path: "/dashboard",
   component: __webpack_require__(/*! ./components/dashbaoard.vue */ "./resources/js/components/dashbaoard.vue").default

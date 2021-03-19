@@ -237,7 +237,8 @@ export default {
                 console.log("Form Data => ", data);
                 this.form.reset();
                 $("#addNewModal").modal("hide");
-                this.loadUsers();
+                // this.loadUsers();
+                Fire.$emit("NewUserCreated");
                 this.$Progress.finish();
                 Toast.fire({
                     icon: "success",
@@ -253,6 +254,9 @@ export default {
     },
     created() {
         this.loadUsers();
+        Fire.$on("NewUserCreated", () => {
+            this.loadUsers();
+        });
     },
     mounted() {
         console.log("Component mounted.");

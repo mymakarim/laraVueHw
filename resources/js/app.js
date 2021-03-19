@@ -53,6 +53,8 @@ const options = {
 
 Vue.use(VueProgressBar, options);
 
+window.Fire = new Vue();
+
 let routes = [
     {
         path: "/dashboard",
